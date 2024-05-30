@@ -48,7 +48,6 @@ class TaskController {
 
     @PostMapping("/logout")
     public String logout(HttpSession session) {
-        logger.debug("CZY DZIAŁA LOGOUT");
         userService.logout(session);
         return "redirect:/login";
     }

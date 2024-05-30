@@ -38,11 +38,10 @@ public class UserService {
         return Optional.empty();
     }
 
-    public boolean logout(HttpSession session) {
+    public void logout(HttpSession session) {
         session.removeAttribute(LOGGED_USER_EMAIL_ATTRIBUTE);
         session.removeAttribute(LOGGED_USER_ID_ATTRIBUTE);
         session.invalidate();
-        return true;
     }
 
     @Value(staticConstructor = "of")
