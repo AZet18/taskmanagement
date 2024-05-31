@@ -27,7 +27,7 @@ class TaskController {
 
     @GetMapping("/")
     public String getTasks(Model model, HttpSession session) {
-        if (userService.getLoggedUser(session).isEmpty()) {
+        if (isUserLoggedIn(session)) {
             model.addAttribute("user", new User());
             return "login";
         } else {
@@ -38,7 +38,7 @@ class TaskController {
 
     @GetMapping("/tasks")
     public String showTasks(HttpSession session, Model model) {
-        if (userService.getLoggedUser(session).isEmpty()) {
+        if (!isUserLoggedIn(session)) {
             return "redirect:/login";
         }
         List<Task> tasks = taskService.getAllTasks();
@@ -52,5 +52,7 @@ class TaskController {
         return "redirect:/login";
     }
 
-
+    private boolean isUserLoggedIn(HttpSession session) {
+        return userService.getLoggedUser(session).isPresent();
+    }
 }

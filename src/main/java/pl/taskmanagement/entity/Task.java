@@ -22,7 +22,7 @@ public class Task {
     @NotBlank
     private String name; //sprzatanie
 
-    private String description; // trzeba dokladnie sprzatnac pokoj
+    private String description; // trzeba dokladnie sprzatnac pokoj todo moze do wyrzucenia
 
     @ManyToMany
     @JoinTable(

@@ -55,6 +55,7 @@ public class AppConfig implements WebMvcConfigurer {
         return localeResolver;
     }
 
+
     @Bean
     public Validator validator(){
         return new LocalValidatorFactoryBean();

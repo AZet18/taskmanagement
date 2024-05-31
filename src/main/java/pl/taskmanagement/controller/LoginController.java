@@ -20,7 +20,7 @@ public class LoginController {
     @GetMapping("/login")
     public String showForm(Model model, HttpSession session) {
         if (userService.getLoggedUser(session).isPresent()) {
-            return "redirect:/tasks";
+            return "redirect:/usertasks";
         }
         model.addAttribute("user", new User());
         return "login";
@@ -30,7 +30,7 @@ public class LoginController {
     public String login(@ModelAttribute User user, HttpSession session) {
         boolean success = userService.login(session, user.getEmail(), user.getPassword());
         if (success) {
-            return "redirect:/tasks";
+            return "redirect:/usertasks";
         }
         return "login";
     }

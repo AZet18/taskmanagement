@@ -1,27 +1,78 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tasks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Tasks</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $("#deadline").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: 0 //
+            });
+        });
+    </script>
 </head>
 <body>
-<h1>Tasks</h1>
 
-<c:forEach items="${tasks}" var="task">
+<h2>User Tasks</h2>
+
+<form action="<c:url value="/usertasks/add"/>" method="post">
     <div>
-        <h2>${task.name}</h2>
-        <p>${task.description}</p>
-        <p><strong>Priority:</strong> ${task.task.priority}</p>
-        <p><strong>Deadline:</strong> ${task.task.deadline}</p>
-        <p><strong>Status:</strong> ${task.task.status}</p>
-        <p><strong>Created Date:</strong> ${task.task.createdDate}</p>
-        <p><strong>Updated Date:</strong> ${task.task.updatedDate}</p>
+        <label for="task">Task:</label>
+        <select name="taskId" id="task">
+            <c:forEach items="${tasks}" var="task">
+                <option value="${task.id}">${task.name}</option>
+            </c:forEach>
+        </select>
     </div>
-</c:forEach>
-<form action="/logout" method="post">
-    <button type="submit">Logout</button>
+    <div>
+        <label for="priority">Priority:</label>
+        <input type="number" name="priority" id="priority" min="1" max="5" required>
+    </div>
+    <div>
+        <label for="deadline">Deadline:</label>
+        <input type="text" name="deadline" id="deadline" placeholder="yyyy-MM-dd"  required>
+    </div>
+    <div>
+        <label for="status">Status:</label>
+        <select name="status" id="status" required>
+            <c:forEach items="${statuses}" var="status">
+                <option value="${status}">${status}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <button type="submit">Add Task</button>
 </form>
+
+<h2>User Tasks List</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Task Name</th>
+        <th>Priority</th>
+        <th>Deadline</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${userTasks}" var="userTask">
+        <tr>
+            <td>${userTask.task.name}</td>
+            <td>${userTask.priority}</td>
+            <td>${userTask.deadline}</td>
+            <td>${userTask.status}</td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
 </body>
 </html>
