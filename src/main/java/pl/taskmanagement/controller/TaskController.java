@@ -2,12 +2,10 @@ package pl.taskmanagement.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.taskmanagement.entity.Task;
 import pl.taskmanagement.entity.User;
 import pl.taskmanagement.service.TaskService;
@@ -23,7 +21,6 @@ class TaskController {
 
     private final TaskService taskService;
     private final UserService userService;
-    private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
 
     @GetMapping("/")
     public String getTasks(Model model, HttpSession session) {
@@ -46,7 +43,7 @@ class TaskController {
         return "tasks";
     }
 
-    @PostMapping("/logout")
+    @RequestMapping("/logout")
     public String logout(HttpSession session) {
         userService.logout(session);
         return "redirect:/login";

@@ -2,7 +2,6 @@ package pl.taskmanagement.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 import pl.taskmanagement.repository.UserRepository;
 
@@ -43,6 +42,8 @@ public class UserService {
         session.removeAttribute(LOGGED_USER_ID_ATTRIBUTE);
         session.invalidate();
     }
+
+
 
     @Value(staticConstructor = "of")
     public static class LoggedUser {

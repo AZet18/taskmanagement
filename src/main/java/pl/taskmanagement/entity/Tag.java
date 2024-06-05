@@ -14,11 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 
 public class Tag {
-
+//praca fizyczna etc
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    //physical work, relaxation, mental work,
     @ManyToMany(mappedBy = "tags")
     private List<Task> tasks;
 }

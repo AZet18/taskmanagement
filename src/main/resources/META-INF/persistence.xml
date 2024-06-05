@@ -6,7 +6,8 @@
     <persistence-unit name="taskmanagementPersistenceUnit">
         <properties>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/taskmanagement?useSSL=false&amp;serverTimezone=UTC"/>
+                      value="jdbc:mysql://localhost:3306/taskmanagement?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"/>
+<!--                      value="jdbc:mysql://localhost:3306/taskmanagement?useSSL=false&amp;serverTimezone=UTC"/>-->
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="coderslab"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -14,6 +15,7 @@
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -14,7 +14,7 @@
         $(function () {
             $("#deadline").datepicker({
                 dateFormat: "yy-mm-dd",
-                minDate: 0 //
+                minDate: 0
             });
         });
     </script>
@@ -38,7 +38,7 @@
     </div>
     <div>
         <label for="deadline">Deadline:</label>
-        <input type="text" name="deadline" id="deadline" placeholder="yyyy-MM-dd"  required>
+        <input type="text" name="deadline" id="deadline" placeholder="yyyy-MM-dd"  readonly>
     </div>
     <div>
         <label for="status">Status:</label>
@@ -60,19 +60,31 @@
         <th>Priority</th>
         <th>Deadline</th>
         <th>Status</th>
+        <th>Created Date</th>
+        <th>Updated Date</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach items="${userTasks}" var="userTask">
-        <tr>
-            <td>${userTask.task.name}</td>
+        <tr id="userTaskRow-${userTask.id}">
+            <td>${userTask.taskName}</td>
             <td>${userTask.priority}</td>
             <td>${userTask.deadline}</td>
             <td>${userTask.status}</td>
+            <td>${userTask.createdDate}</td>
+            <td>${userTask.updatedDate}</td>
+            <td>
+                <form id="deleteTaskForm-${userTask.id}" action="<c:url value='/usertasks/delete/${userTask.id}'/>" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-
+<form action="<c:url value="/logout"/>" method="post">
+    <button type="submit">Logout</button>
+</form>
 </body>
 </html>

@@ -11,6 +11,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -32,11 +33,12 @@ public class UserTask {
     private LocalDate deadline;
 
     @NotNull
-    private String status;
-    //    @Column(name = "created_date") //todo jak ogarne reszte
-//    private LocalDateTime createdDate;
-//    @Column(name = "updated_date")
-//    private LocalDateTime updatedDate;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    @Column(name = "created_date", updatable = false)
+    private LocalDateTime createdDate;
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
@@ -44,5 +46,16 @@ public class UserTask {
     @ManyToOne
     @JoinColumn(name = "asignee_id")
     private User user;
+
+    @PrePersist
+    protected void onCreate() {
+        createdDate = LocalDateTime.now();
+        updatedDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedDate = LocalDateTime.now();
+    }
 
 }
