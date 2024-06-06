@@ -64,13 +64,13 @@ public class UserTaskService {
             throw new RuntimeException("User not authorized to delete this task");
         }
 
-        userTaskRepository.removeUserMojeUsuwanie(userTask.getId());
+        userTaskRepository.removeUserTask(userTask.getId());
     }
 
-//    public UserTask findById(Long userTaskId) {
-//        return userTaskRepository.findById(userTaskId)
-//                .orElseThrow(() -> new RuntimeException("User task not found with id: " + userTaskId));
-//    }
+    public UserTask findById(Long userTaskId) {
+        return userTaskRepository.findById(userTaskId)
+                .orElseThrow(() -> new RuntimeException("User task not found with id: " + userTaskId));
+    }
 
 //    public void deleteUserTask(Long userTaskId) {
 //        userTaskRepository.deleteById(userTaskId);
@@ -85,6 +85,9 @@ public class UserTaskService {
         return userTaskRepository.findById(id)
                 .map(existingUserTask -> {
                     existingUserTask.setPriority(userTask.getPriority());
+                    existingUserTask.setDeadline(userTask.getDeadline());
+                    existingUserTask.setStatus(userTask.getStatus());
+                    existingUserTask.setTask(userTask.getTask());
                     return userTaskRepository.save(existingUserTask);
                 })
                 .orElseThrow(() -> new RuntimeException("Task not found with id " + id));

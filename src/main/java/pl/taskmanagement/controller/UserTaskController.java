@@ -75,12 +75,45 @@ public class UserTaskController {
         if (loggedUser == null) {
             return "redirect:/login";
         }
-        System.out.println(id);
 
-//        userTaskService.deleteUserTask(userTask.getUser().getId(), loggedUser.getId());
         userTaskService.deleteUserTask(id, loggedUser.getId());
-        throw new RuntimeException("ERRRRRORRRRRR");
-//        return "redirect:/usertasks";
+        return "redirect:/usertasks";
+    }
+
+    @GetMapping("/usertasks/edit/{id}")
+    public String editUserTask(@PathVariable Long id, HttpSession session, Model model) {
+        UserService.LoggedUser loggedUser = getLoggedUser(session);
+        if (loggedUser == null) {
+            return "redirect:/login";
+        }
+
+        UserTask userTask = userTaskService.findById(id);
+        if (!userTask.getUser().getId().equals(loggedUser.getId())) {
+            return "redirect:/usertasks";
+        }
+
+        model.addAttribute("userTask", userTask);
+        model.addAttribute("tasks", taskService.getAllTasks());
+        model.addAttribute("statuses", Status.values());
+
+        return "editUserTask";
+    }
+
+    @PostMapping("/usertasks/update")
+    public String updateUserTask(HttpSession session,  @RequestParam Long taskId, @ModelAttribute UserTask userTask) {
+        UserService.LoggedUser loggedUser = getLoggedUser(session);
+        if (loggedUser == null) {
+            return "redirect:/login";
+        }
+
+        if (!userTask.getUser().getId().equals(loggedUser.getId())) {
+            return "redirect:/usertasks";
+        }
+        Task task = taskService.findById(taskId);
+        userTask.setTask(task);
+        userTaskService.updateTask(userTask.getId(), userTask);
+
+        return "redirect:/usertasks";
     }
 
     private boolean isUserLoggedIn(HttpSession session) {

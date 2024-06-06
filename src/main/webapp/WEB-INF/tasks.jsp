@@ -13,11 +13,6 @@
     <div>
         <h2>${task.name}</h2>
         <p>${task.description}</p>
-<%--        <p><strong>Priority:</strong> ${u.priority}</p>--%>
-<%--        <p><strong>Deadline:</strong> ${ta}</p>--%>
-<%--        <p><strong>Status:</strong> ${task.task.status}</p>--%>
-<%--        <p><strong>Created Date:</strong> ${task.task.createdDate}</p>--%>
-<%--        <p><strong>Updated Date:</strong> ${task.task.updatedDate}</p>--%>
     </div>
 </c:forEach>
 <form action="/logout" method="post">

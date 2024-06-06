@@ -78,7 +78,11 @@
                 <form id="deleteTaskForm-${userTask.id}" action="<c:url value='/usertasks/delete/${userTask.id}'/>" method="post" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
+                <form action="<c:url value='/usertasks/edit/${userTask.id}'/>" method="get" style="display:inline;">
+                    <button type="submit">Edit</button>
+                </form>
             </td>
+
         </tr>
     </c:forEach>
     </tbody>

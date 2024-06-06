@@ -6,6 +6,7 @@ import pl.taskmanagement.entity.Task;
 import pl.taskmanagement.repository.TaskRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -15,6 +16,11 @@ public class TaskService {
 
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
+    }
+
+    public Task findById(Long id) {
+        Optional<Task> optionalTask = taskRepository.findById(id);
+        return optionalTask.orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
     }
 
 
