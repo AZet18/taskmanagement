@@ -79,8 +79,8 @@ public class UserTaskController {
 
 //        userTaskService.deleteUserTask(userTask.getUser().getId(), loggedUser.getId());
         userTaskService.deleteUserTask(id, loggedUser.getId());
-
-        return "redirect:/usertasks";
+        throw new RuntimeException("ERRRRRORRRRRR");
+//        return "redirect:/usertasks";
     }
 
     private boolean isUserLoggedIn(HttpSession session) {

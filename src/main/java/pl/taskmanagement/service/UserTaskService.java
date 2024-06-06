@@ -55,6 +55,7 @@ public class UserTaskService {
         userTaskRepository.save(newUserTask);
     }
 
+    @Transactional
     public void deleteUserTask(Long userTaskId, Long userId) {
         UserTask userTask = userTaskRepository.findById(userTaskId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
@@ -63,7 +64,7 @@ public class UserTaskService {
             throw new RuntimeException("User not authorized to delete this task");
         }
 
-        userTaskRepository.delete(userTask);
+        userTaskRepository.removeUserMojeUsuwanie(userTask.getId());
     }
 
 //    public UserTask findById(Long userTaskId) {
