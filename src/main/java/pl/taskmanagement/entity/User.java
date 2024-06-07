@@ -28,7 +28,10 @@ public class User {
     private String email;
 
     private String password;
+    @Column(name = "is_admin")
+    private boolean isAdmin;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<UserTask> userTasks; //robic to w serwisie
+    private List<UserTask> userTasks;
+
 }

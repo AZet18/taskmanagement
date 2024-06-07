@@ -41,7 +41,7 @@
     </div>
     <div>
         <label for="deadline">Deadline:</label>
-        <input type="text" name="deadline" id="deadline" placeholder="yyyy-MM-dd"  readonly>
+        <input type="text" name="deadline" id="deadline" placeholder="yyyy-MM-dd" required>
     </div>
     <div>
         <label for="status">Status:</label>

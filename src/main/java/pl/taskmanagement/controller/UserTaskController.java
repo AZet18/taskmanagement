@@ -36,7 +36,6 @@ public class UserTaskController {
         model.addAttribute("tasks", taskService.getAllTasks());
         model.addAttribute("userTasks", getUserTasks(userId));
         model.addAttribute("statuses", Status.values());
-//        model.addAttribute("userTask", new UserTask());
         return "userTasks";
     }
 

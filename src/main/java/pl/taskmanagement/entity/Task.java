@@ -14,15 +14,15 @@ import java.util.List;
 @Table(name = "tasks")
 @NoArgsConstructor
 public class Task {
-//stałe zadanie
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String name; //sprzatanie
+    private String name;
 
-    private String description; // trzeba dokladnie sprzatnac pokoj todo moze do wyrzucenia
+    private String description;
 
     @ManyToMany
     @JoinTable(

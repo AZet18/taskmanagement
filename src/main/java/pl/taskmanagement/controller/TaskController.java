@@ -24,7 +24,7 @@ class TaskController {
 
     @GetMapping("/")
     public String getTasks(Model model, HttpSession session) {
-        if (isUserLoggedIn(session)) {
+        if (!isUserLoggedIn(session)) {
             model.addAttribute("user", new User());
             return "login";
         } else {
