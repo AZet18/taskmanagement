@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -48,6 +50,14 @@
             </c:forEach>
         </select>
     </div>
+    <div>
+        <label for="tags">Tags:</label>
+        <select name="tagIds" id="tags" multiple>
+            <c:forEach items="${tags}" var="tag">
+                <option value="${tag.id}">${tag.name}</option>
+            </c:forEach>
+        </select>
+    </div>
     <button type="submit">Add Task</button>
 </form>
 
@@ -60,6 +70,7 @@
         <th>Priority</th>
         <th>Deadline</th>
         <th>Status</th>
+        <th>Tags</th> <!-- Dodaj nową kolumnę -->
         <th>Created Date</th>
         <th>Updated Date</th>
         <th>Actions</th>
@@ -72,6 +83,11 @@
             <td>${userTask.priority}</td>
             <td>${userTask.deadline}</td>
             <td>${userTask.status}</td>
+            <td>
+                <c:forEach items="${userTask.tags}" var="tag">
+                    ${tag.name} <!-- Wyświetl tagi -->
+                </c:forEach>
+            </td>
             <td>${userTask.createdDate}</td>
             <td>${userTask.updatedDate}</td>
             <td>
@@ -82,7 +98,6 @@
                     <button type="submit">Edit</button>
                 </form>
             </td>
-
         </tr>
     </c:forEach>
     </tbody>

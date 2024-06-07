@@ -6,10 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.taskmanagement.controller.model.AddUserTaskViewModel;
 import pl.taskmanagement.controller.model.UserTaskViewModel;
-import pl.taskmanagement.entity.Status;
-import pl.taskmanagement.entity.Task;
-import pl.taskmanagement.entity.User;
-import pl.taskmanagement.entity.UserTask;
+import pl.taskmanagement.entity.*;
+import pl.taskmanagement.service.TagService;
 import pl.taskmanagement.service.TaskService;
 import pl.taskmanagement.service.UserService;
 import pl.taskmanagement.service.UserTaskService;
@@ -25,6 +23,7 @@ public class UserTaskController {
     private final UserTaskService userTaskService;
     private final UserService userService;
     private final TaskService taskService;
+    private final TagService tagService;
 
     @GetMapping("/usertasks")
     public String showUserTasks(HttpSession session, Model model) {
@@ -36,6 +35,7 @@ public class UserTaskController {
         model.addAttribute("tasks", taskService.getAllTasks());
         model.addAttribute("userTasks", getUserTasks(userId));
         model.addAttribute("statuses", Status.values());
+        model.addAttribute("tags", tagService.getAllTags());
         return "userTasks";
     }
 
@@ -94,12 +94,13 @@ public class UserTaskController {
         model.addAttribute("userTask", userTask);
         model.addAttribute("tasks", taskService.getAllTasks());
         model.addAttribute("statuses", Status.values());
+        model.addAttribute("tags", tagService.getAllTags());
 
         return "editUserTask";
     }
 
     @PostMapping("/usertasks/update")
-    public String updateUserTask(HttpSession session,  @RequestParam Long taskId, @ModelAttribute UserTask userTask) {
+    public String updateUserTask(HttpSession session, @RequestParam List<Long> tagIds, @RequestParam Long taskId, @ModelAttribute UserTask userTask) {
         UserService.LoggedUser loggedUser = getLoggedUser(session);
         if (loggedUser == null) {
             return "redirect:/login";
@@ -110,7 +111,7 @@ public class UserTaskController {
         }
         Task task = taskService.findById(taskId);
         userTask.setTask(task);
-        userTaskService.updateTask(userTask.getId(), userTask);
+        userTaskService.updateTask(userTask.getId(), userTask, tagIds);
 
         return "redirect:/usertasks";
     }
@@ -125,11 +126,14 @@ public class UserTaskController {
     }
 
     private List<UserTaskViewModel> getUserTasks(Long userId) {
-        return userTaskService.getUserTasksByUserId(userId)
-                .stream()
+        List<UserTask> userTasks = userTaskService.getUserTasksByUserId(userId);
+        List<UserTaskViewModel> userTaskViewModels = userTasks.stream()
                 .map(UserTaskViewModel::of)
                 .collect(Collectors.toList());
+        userTaskViewModels.forEach(userTaskViewModel -> userTaskViewModel.setTags(userTaskService.getTagsForUserTask(userTaskViewModel.getId())));
+        return userTaskViewModels;
     }
+
 }
 
 

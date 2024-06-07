@@ -2,11 +2,11 @@ package pl.taskmanagement.controller.model;
 
 import lombok.Data;
 import pl.taskmanagement.entity.Status;
-import pl.taskmanagement.service.UserTaskService;
 import pl.taskmanagement.service.UserTaskService.AddUserTaskParams;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Data
 public class AddUserTaskViewModel {
@@ -15,6 +15,7 @@ public class AddUserTaskViewModel {
     private Integer priority;
     private String deadline;
     private String status;
+    private List<Long> tagsIds;
 
     public AddUserTaskParams asParams(Long userId) {
         return AddUserTaskParams.builder()
@@ -22,6 +23,7 @@ public class AddUserTaskViewModel {
                 .taskId(taskId)
                 .userId(userId)
                 .status(Status.valueOf(status))
+                .tagIds(tagsIds != null ? tagsIds : List.of())
                 .deadline(LocalDate.parse(deadline, DateTimeFormatter.ISO_DATE))
                 .build();
 

@@ -24,7 +24,7 @@ public class Task {
 
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "task_tags",
             joinColumns = @JoinColumn(name = "task_id"),

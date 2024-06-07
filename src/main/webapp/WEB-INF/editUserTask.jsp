@@ -30,10 +30,9 @@
         <label for="task">Task:</label>
         <select name="taskId" id="task">
             <c:forEach items="${tasks}" var="task">
-                <option value="${task.id}" ${task.id == userTask.task.id ? 'selected' : ''}>${task.name}</option>
+                <option value="${task.id}" <c:if test="${task.id == userTask.task.id}">selected</c:if>>${task.name}</option>
             </c:forEach>
         </select>
-
     </div>
     <div>
         <label for="priority">Priority:</label>
@@ -41,13 +40,21 @@
     </div>
     <div>
         <label for="deadline">Deadline:</label>
-        <input type="text" name="deadline" id="deadline" placeholder="yyyy-MM-dd" required>
+        <input type="text" name="deadline" id="deadline" placeholder="yyyy-MM-dd" value="${userTask.deadline}" required>
     </div>
     <div>
         <label for="status">Status:</label>
         <select name="status" id="status" required>
             <c:forEach items="${statuses}" var="status">
-                <option value="${status}" ${status == userTask.status ? 'selected' : ''}>${status}</option>
+                <option value="${status}" <c:if test="${status == userTask.status}">selected</c:if>>${status}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div>
+        <label for="tags">Tags:</label>
+        <select name="tagIds" id="tags" multiple>
+            <c:forEach items="${tags}" var="tag">
+                <option value="${tag.id}" <c:if test="${userTask.task.tags.contains(tag)}">selected</c:if>>${tag.name}</option>
             </c:forEach>
         </select>
     </div>

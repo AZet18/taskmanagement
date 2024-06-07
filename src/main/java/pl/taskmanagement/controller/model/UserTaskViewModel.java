@@ -2,12 +2,15 @@ package pl.taskmanagement.controller.model;
 
 import lombok.Data;
 import pl.taskmanagement.entity.Status;
+import pl.taskmanagement.entity.Tag;
 import pl.taskmanagement.entity.UserTask;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Data
 public class UserTaskViewModel {
@@ -17,6 +20,7 @@ public class UserTaskViewModel {
     private int priority;
     private String deadline;
     private String status;
+    private List <Tag> tags;   //tags
     private String createdDate;
     private String updatedDate;
 
@@ -27,6 +31,7 @@ public class UserTaskViewModel {
         userTaskViewModel.setPriority(userTask.getPriority());
         userTaskViewModel.setDeadline(localDateAsString(userTask.getDeadline()));
         userTaskViewModel.setStatus(getStatus(userTask.getStatus()));
+        userTaskViewModel.setTags(userTask.getTask().getTags());
         userTaskViewModel.setCreatedDate(localDateTimeAsString(userTask.getCreatedDate()));
         userTaskViewModel.setUpdatedDate(localDateTimeAsString(userTask.getUpdatedDate()));
         return userTaskViewModel;
