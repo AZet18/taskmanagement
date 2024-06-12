@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "user_task")
 public class UserTask {
-    //polaczenie kto wykonuje kiedy jakie zadanie, np. w srode umyje auto, okna,
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

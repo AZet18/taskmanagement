@@ -78,6 +78,9 @@ public class UserTaskService {
                 .orElseThrow(() -> new RuntimeException("User task not found with id: " + userTaskId));
     }
 
+    public List<UserTask> findAll() {
+        return userTaskRepository.findAll();
+    }
 
     public List<UserTask> getUserTasksByUserId(Long userId) {
         return userTaskRepository.findByUserId(userId);

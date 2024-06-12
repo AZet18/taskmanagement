@@ -12,6 +12,15 @@
 <div class="container mt-4">
     <h1 class="mb-4">Tasks</h1>
 
+    <!-- Wyświetlanie komunikatu -->
+    <c:if test="${not empty sessionScope.message}">
+        <div class="alert alert-${sessionScope.messageType}">
+            <fmt:message key="${sessionScope.message}"/>
+        </div>
+        <% session.removeAttribute("message"); %>
+        <% session.removeAttribute("messageType"); %>
+    </c:if>
+
     <div class="row">
         <c:forEach items="${tasks}" var="task">
             <div class="col-md-4 mb-3">

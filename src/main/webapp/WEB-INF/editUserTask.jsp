@@ -57,7 +57,7 @@
 
         <div class="form-group">
             <label for="tags">Tags:</label>
-            <select name="tagIds" id="tags" class="form-control" multiple>
+            <select name="tagIds" id="tags" class="form-control" multiple required>
                 <c:forEach items="${tags}" var="tag">
                     <option value="${tag.id}" <c:if test="${userTask.task.tags.contains(tag)}">selected</c:if>>${tag.name}</option>
                 </c:forEach>

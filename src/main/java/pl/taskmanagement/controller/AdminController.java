@@ -1,9 +1,11 @@
 package pl.taskmanagement.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.taskmanagement.entity.Task;
 import pl.taskmanagement.service.TaskService;
 import pl.taskmanagement.service.UserService;
@@ -55,7 +57,15 @@ public class AdminController {
         if (loggedUser == null || !userService.isAdmin(session)) {
             return "redirect:/login";
         }
-        taskService.deleteTask(taskId);
+        if (taskService.findTaskByUserTaskId(taskId).isEmpty()) {
+            taskService.deleteTask(taskId);
+            session.setAttribute("messageType", "success");
+            session.setAttribute("message", "Task successfully deleted.");
+        } else {
+            session.setAttribute("messageType", "danger");
+            session.setAttribute("message", "Cannot delete task because it is associated with user tasks.");
+            //redirectAttributes.addFlashAttribute
+        }
         return "redirect:/admin/tasks";
     }
 
