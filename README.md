@@ -19,3 +19,16 @@ The project is structured following the MVC (Model-View-Controller) design patte
 Model: Represents the data layer (Entities and Repositories).
 View: Represents the presentation layer (JSP pages).
 Controller: Manages user input and interactions (Controllers).
+
+User views:
+![image](https://github.com/AZet18/taskmanagement/assets/145192140/6c08e7ce-74a5-4e14-ae22-ffa8a3c0ed10)
+![image](https://github.com/AZet18/taskmanagement/assets/145192140/8aad067d-2fc4-42a7-8323-36ce2d4ec6a3)
+![image](https://github.com/AZet18/taskmanagement/assets/145192140/7c560145-4d1d-4b2f-b946-f2e44ba0f116)
+
+Admin views:
+![image](https://github.com/AZet18/taskmanagement/assets/145192140/634002e5-3d0d-4ae7-b982-9388c85427d9)
+![image](https://github.com/AZet18/taskmanagement/assets/145192140/deb10609-5c83-4b8a-b66c-7597d323ea51)
+
+
+
+
