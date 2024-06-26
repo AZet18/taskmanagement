@@ -1,4 +1,4 @@
-Task Management Application
+Task Management Application:
 The Task Management Application is designed to manage and organize tasks efficiently. It supports user roles, task assignment, priority management, and deadline tracking. 
 The application is built using the Spring Framework, Hibernate for ORM, JSP for views, and various other technologies for validation and internationalization.
 
